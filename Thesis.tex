@@ -1,0 +1,241 @@
+%---------------------------------------------------------------------------%
+%-                                                                         -%
+%-                           LaTeX Template ETSIT UPM                      -%
+%-                                                                         -%
+%---------------------------------------------------------------------------%
+
+%---------------------------------------------------------------------------%
+%->> Document class declaration
+%---------------------------------------------------------------------------%
+%\documentclass[doublesided]{Style/uwaterloothesis}%
+\documentclass[twoside,12pt,a4paper]{book}
+\let\cleardoublepage\clearpage
+%----------------Style------------------------------%
+%\textheight = 21cm % Largo de texto impreso, default = 19cm
+%\textwidth = 16cm % Ancho ce texto impreso, default = 14cm
+\usepackage[top=2.45cm,bottom=2.1cm,left=2.5cm,right=2.5cm,,headsep=40pt,asymmetric]{geometry}
+
+
+%- Multiple optional arguments:
+%- [<singlesided|doublesided|printcopy>]% set one or two sided eprint or print
+%- [draftversion]% show draft version information
+%- [standard options for book class: draft|paper size|font size|...]%
+%---------------------------------------------------------------------------%
+%->> Document settings
+%---------------------------------------------------------------------------%
+%\usepackage[myhdr,list]{Style/artratex}% document settings
+%- usage: \usepackage[option1,option2,...,optionN]{artratex}
+%- Multiple optional arguments:
+%- [bibtex|biber]% set bibliography processor and package
+%- [<numbers|super|authoryear|alpha>]% set citation and reference style
+%- <numbers>: textual: Jones [1]; parenthetical: [1]
+%- <super>: textual: Jones superscript [1]; parenthetical: superscript [1]
+%- <authoryear>: textual: Jones (1995); parenthetical: (Jones, 1995)
+%- <alpha>: textual: not available; parenthetical: [Jon95]
+%- [geometry]% reconfigure page layout via geometry package
+%- [lscape]% provide landscape layout environment
+%- [myhdr]% enable header and footer via fancyhdr package
+%- [color]% provide color support via xcolor package
+%- [background]% enable page background
+%- [tikz]% provide complex diagrams via tikz package
+%- [table]% provide complex tables via ctable package
+%- [list]% provide enhanced list environments for algorithm and coding
+%- [math]% enable some extra math packages
+
+
+%\usepackage{Style/artracom}% user defined commands
+%---------------------------------------------------------------------------%
+%->> Document inclusion
+%---------------------------------------------------------------------------%
+%\includeonly{Tex/Chap_1,...,Tex/Chap_N}% selected files compilation
+%---------------------------------------------------------------------------%
+%->> Document content
+%---------------------------------------------------------------------------%
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{graphicx} % Paquete para graficas
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
+
+\usepackage[english]{babel} 
+\usepackage{palatino}
+\usepackage[full]{textcomp}\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{mathtools} % also loads amsmath
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{subfig}
+\usepackage{caption} 
+\usepackage{subfiles}
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{plain}
+\fancypagestyle{myheader}{
+	\pagestyle{fancy}
+	\fancyhf{}
+	
+	%----------numbering all pages---------%
+	\fancyfoot{}
+	\fancyfoot[C]{\thepage}
+}
+
+\fancypagestyle{myheader1}{
+	\pagestyle{plain}
+	\fancyhf{}
+	
+	%----------numbering all pages---------%
+	\fancyfoot{}
+	\fancyfoot[C]{\thepage}
+}
+
+\usepackage{acronym}
+\usepackage{float}
+\usepackage{tabularx,ragged2e} 
+
+%Space betwwen figures and tables to the text
+\usepackage{etoolbox}
+\usepackage{pifont}
+\usepackage{gensymb}
+
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.95em}
+
+%\setlength{\textfloatsep}{0pt plus 0pt minus 0pt}
+
+
+
+%----------numbering all pages---------%
+\fancyfoot{}
+\fancyfoot[C]{\thepage}
+
+%--------------------------------------%
+
+\makeatletter
+\newcommand{\setword}[2]{%
+	\phantomsection
+	#1\def\@currentlabel{\unexpanded{#1}}\label{#2}%
+}
+
+\titlespacing{\chapter}{0pt}{50pt}{8pt}
+\titlespacing{\section}{0pt}{0pt}{0pt}
+
+\BeforeBeginEnvironment{figure}{\vskip-2ex}
+\AfterEndEnvironment{figure}{\vskip-2ex}
+%--------------------------------------%
+
+\graphicspath{ {C:/Users/canop/Desktop/MSTC/TFM/ToWrite/COPIATFM/Img/} }
+
+
+
+
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+\usepackage{nameref}
+\usepackage{multicol}
+
+
+\newcommand{\icon}[1]{\includegraphics[height=18pt]{#1}}
+\begin{document}
+	
+\frontmatter
+%\input{0_Front/front}% title page, abstract, dedication
+\input{0_Front/jorge_front}% title page, abstract, dedication
+\clearpage
+\pagenumbering{roman}
+%-------------- Content-------------------%
+\input{0_Front/abstract}
+%-------------- Acknowledgments -------------------%
+\input{0_Front/acknowledgments}
+%-------------- Content-------------------%
+\input{0_Front/context}
+
+%-------------- Acronym -------------------%
+\input{Acronym/acronym}% title page, abstract, dedication
+
+\mainmatter
+\clearpage
+\pagenumbering{arabic} 
+
+\pagestyle{myheader}
+%-------------------HEADERS---------------%
+\rhead{\includegraphics[width=0.20\textwidth,height=8.0mm]{MSTC}}
+\lhead{{\includegraphics[width=0.20\textwidth,height=8.0mm]{ETSIT}}}
+
+
+
+%----------------CHAPTER------------------------------%
+\titleformat{\chapter}[display]% shape
+{\huge\bfseries}% format
+{% label
+	\makebox[50pt][l]{%
+		\raisebox{0pt}[0pt][0pt]{%
+			\textcolor{black!30}{\fontsize{120pt}{120pt}\selectfont\thechapter}%
+		}% /raisebox
+	}% /makebox
+}% label
+{0pt}% sep
+{}% before-code
+
+%--------------CHAPTER 1-------------------%
+\input{1_Introduction/introduction}
+
+%--------------CHAPTER 2-------------------%
+\input{2_Previous/previous_work}
+
+%--------------CHAPTER 3-------------------%
+\input{3_StateArt/stateart}
+	
+%--------------CHAPTER 4-------------------%
+\input{4_Prooposal/proposal}
+%\input{4_Prooposal/result}
+
+
+%--------------CHAPTER 5-------------------%
+\input{5_conclusion/conclusion}
+
+
+
+%-------------------HEADERS---------------%
+\pagestyle{plain}
+\rhead{}
+\lhead{}
+
+\nocite{*}
+\bibliographystyle{unsrt} 
+\bibliography{6_references/references} \label{ch:Bibliography}
+
+
+\clearpage
+\pagenumbering{alph} 
+%--------------ANEXO-------------------%
+\input{7_anexo/anexo}
+
+\end{document}
+%---------------------------------------------------------------------------%
+

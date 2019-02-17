@@ -1,0 +1,24 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: CNN.aux
+The style file: apalike.bst
+I couldn't open database file refs_cnn.bib
+---line 51 of file CNN.aux
+ : \bibdata{refs_cnn
+ :                  }
+I'm skipping whatever remains of this command
+I found no database files---while reading file CNN.aux
+Warning--I didn't find a database entry for "lecun1989generalization"
+Warning--I didn't find a database entry for "goodfellow2016deep"
+Warning--I didn't find a database entry for "deeppython"
+Warning--I didn't find a database entry for "freund1999large"
+Warning--I didn't find a database entry for "bracewell1986fourier"
+Warning--I didn't find a database entry for "hirschman2012convolution"
+Warning--I didn't find a database entry for "papoulis1962fourier"
+Warning--I didn't find a database entry for "cs231n"
+Warning--I didn't find a database entry for "bhandare2016applications"
+Warning--I didn't find a database entry for "colah"
+Warning--I didn't find a database entry for "jarrett2009best"
+Warning--I didn't find a database entry for "glorot2011deep"
+Warning--I didn't find a database entry for "nair2010rectified"
+Warning--I didn't find a database entry for "zhou1988computation"
+Warning--I didn't find a database entry for "nasrabadi2007pattern"
+(There were 2 error messages)

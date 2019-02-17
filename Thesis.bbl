@@ -1,0 +1,89 @@
+\begin{thebibliography}{10}
+
+\bibitem{article}
+Peter Adams.
+\newblock The title of the work.
+\newblock {\em The name of the journal}, 4(2):201--213, 7 1993.
+\newblock An optional note.
+
+\bibitem{book}
+Peter Babington.
+\newblock {\em The title of the work}, volume~4 of {\em 10}.
+\newblock The name of the publisher, The address, 3 edition, 7 1993.
+\newblock An optional note.
+
+\bibitem{booklet}
+Peter Caxton.
+\newblock The title of the work.
+\newblock How it was published, The address of the publisher, 7 1993.
+\newblock An optional note.
+
+\bibitem{conference}
+Peter Draper.
+\newblock The title of the work.
+\newblock In The editor, editor, {\em The title of the book}, volume~4 of {\em
+  5}, page 213, The address of the publisher, 7 1993. The organization, The
+  publisher.
+\newblock An optional note.
+
+\bibitem{inbook}
+Peter Eston.
+\newblock {\em The title of the work}, volume~4 of {\em 5}, chapter~8, pages
+  201--213.
+\newblock The name of the publisher, The address of the publisher, 3 edition, 7
+  1993.
+\newblock An optional note.
+
+\bibitem{incollection}
+Peter Farindon.
+\newblock The title of the work.
+\newblock In The editor, editor, {\em The title of the book}, volume~4 of {\em
+  5}, chapter~8, pages 201--213. The name of the publisher, The address of the
+  publisher, 3 edition, 7 1993.
+\newblock An optional note.
+
+\bibitem{manual}
+Peter Gainsford.
+\newblock {\em The title of the work}.
+\newblock The organization, The address of the publisher, 3 edition, 7 1993.
+\newblock An optional note.
+
+\bibitem{mastersthesis}
+Peter Harwood.
+\newblock The title of the work.
+\newblock Master's thesis, The school of the thesis, The address of the
+  publisher, 7 1993.
+\newblock An optional note.
+
+\bibitem{misc}
+Peter Isley.
+\newblock The title of the work.
+\newblock How it was published, 7 1993.
+\newblock An optional note.
+
+\bibitem{phdthesis}
+Peter Joslin.
+\newblock {\em The title of the work}.
+\newblock PhD thesis, The school of the thesis, The address of the publisher, 7
+  1993.
+\newblock An optional note.
+
+\bibitem{proceedings}
+Peter Kidwelly, editor.
+\newblock {\em The title of the work}, volume~4 of {\em 5}, The address of the
+  publisher, 7 1993. The organization, The name of the publisher.
+\newblock An optional note.
+
+\bibitem{techreport}
+Peter Lambert.
+\newblock The title of the work.
+\newblock Technical Report~2, The institution that published, The address of
+  the publisher, 7 1993.
+\newblock An optional note.
+
+\bibitem{unpublished}
+Peter Marcheford.
+\newblock The title of the work.
+\newblock An optional note, 7 1993.
+
+\end{thebibliography}

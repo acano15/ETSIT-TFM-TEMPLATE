@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper,authoryear]{elsarticle}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage[breaklinks = true, colorlinks = true, linkcolor = blue, urlcolor = blue,  citecolor = black]{hyperref}
+
+\setlength{\textheight}{23.1cm}
+\setlength{\textwidth}{16.5cm}
+\setlength{\oddsidemargin}{-3mm}
+\setlength{\topmargin}{-10mm}
+\pagestyle{empty}
+
+\graphicspath{ {C:/Users/canop/Desktop/MSTC/TFM/ToWrite/TFM-Template/Img/} }
+
+\begin{document}
+\begin{titlepage}
+	
+	
+	\newlength{\centeroffset}
+	\setlength{\centeroffset}{-0.5\oddsidemargin}
+	\addtolength{\centeroffset}{0.5\evensidemargin}
+	\thispagestyle{empty}
+	
+	\noindent\hspace*{\centeroffset}\begin{minipage}{\textwidth}
+		
+		\centering
+				
+		\textsc{ \large MASTER THESIS\\[0.2cm]}
+		\textsc{MSC IN SIGNAL THEORY AND COMMUNICATIONS}\\[1.5cm]
+		% Upper part of the page
+		
+		% Title
+		{\LARGE\bfseries Convolutional Neural Networks.\\
+		}
+		\noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
+		
+	\end{minipage}
+	
+	\vspace{1cm}
+	\noindent\hspace*{\centeroffset}\begin{minipage}{\textwidth}
+		\centering
+		
+		\textbf{Author}\\ {García-Torres Fernández, Jorge}\\[2.5ex]
+		\textbf{Professors}\\
+		{Zazo Bello, Santiago}\\[1.5cm]
+		\textsc{Universidad Politécnica de Madrid, ETSIT}\\
+		\textsc{---}\\
+		Madrid, March, $2018$
+	\end{minipage}
+	%\addtolength{\textwidth}{\centeroffset}
+	%\vspace{\stretch{2}}
+\end{titlepage}
+
+\cleardoublepage
+
+\section*{1.  Introduction}
+
+	Convolutional Neural Networks (\cite{lecun1989generalization}), also known as \textit{CNNs} or \textit{ConvNets}, are a powerfull artificial neural network technique for processing data that has a known, grid-like topology (\cite{goodfellow2016deep,deeppython}). They are popular since they are tremendously succesfull in practical applications, particularly in processing time series data, which can be thought of as a 1D grid taking samples at regular intervals, and image data, which can be thought of as a 2D grid of pixels (\cite{goodfellow2016deep}). In general, convolutional networks are simply neural networks or multilayer perceptrons that use a mathematical operator called convolution in place of general matrix multiplication in at least one of their layers.
+	
+	\subsection*{1.1  Perceptron}
+	
+		A perceptron (\cite{freund1999large}) is a single artifical neuron model that was a precursor to larger neural networks. It is a simple computacional unit that have weighted input signals (including a bias) and produce an output signal using tradicionally a nonlinear activation function that allows the network to combine the inputs in a more complex way and in turn provide a richer capability in the function it can model (\cite{deeppython}).
+	
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=11cm]{face1}
+				\caption{Scheme of a single perceptron. Reference: \url{http://www.techmaru.com/technology/artificial-neural-networks/neural-network-elements}.}
+			\end{center}
+		\end{figure}
+		
+		Perceptrons can be arranged into networks, forming neural networks or multilayer perceptrons (MLP). The MLP architecture contains:
+	
+		\begin{itemize}
+			\item Input or Visible Layer: Bottom layer that takes input from our data.
+		
+			\item Hidden Layers: Layers that are not directly exposed to the input.
+		
+			\item Output Layer: Layer responsible for outputting a value or vector of values that correspond to the format required for the problem. In the output layer, the choice of activation function is strongly constrained by the type of problem that we are modeling.		
+		\end{itemize}
+			
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=10cm]{face1}
+				\caption{Scheme of a Multilayer perceptron. Reference: \url{https://www.researchgate.net/figure/A-hypothetical-example-of-Multilayer-Perceptron-Network_fig2_273768094}.}
+			\end{center}
+		\end{figure}
+		
+		\subsection*{1.2  Convolution}
+		
+		In case of CNNs, convolution operator is employed instead of full matrix multiplication in at least one layer. Convolution (\cite{bracewell1986fourier}) is a function that expresses the overlap of one function \textit{g} as it is shifted over another function \textit{f} (\cite{hirschman2012convolution}):
+		
+		\begin{equation}
+		s(t) = (f*g)(t) = \int f(a)g(t-a)da 
+		\end{equation}
+		
+		and the discrete convolution:
+		
+		\begin{equation}
+		s(t) = (f*g)(t) = \sum_{a=-\infty}^{\infty} f(a)g(t-a)
+		\end{equation}
+		
+		In neural networks terminology we refer to the first argument (the \textit{f} function) as \textit{input}, the second argument (the \textit{g} funtion) as \textit{kernel} or \textit{filter} and the \textit{s} output as the \textit{feature map}. In machine learning applications, each element of the input and the kernel must be explicitle stored separately, hence we can assume that these functions are zero everywhere but the finite set of points we store the values. This means that in practice we can impement the infinite summation over a finite number of array elements (\cite{goodfellow2016deep}). 
+		
+		Then, if we take a two-dimensional input (an image) we probably also want to use a two-dimensional kernel:
+		
+		\begin{equation}
+		S(i,j) = (I*K)(i,j) = \sum_m\sum_nI(m,n)K(i-m,j-n)
+		\end{equation}
+		
+		Due to the conmutative property of convolution, we can equivalently write:
+		
+		\begin{equation}
+		S(i,j) = (K*I)(i,j) = \sum_m\sum_nI(i-m,j-n)K(m,n)
+		\end{equation}
+		
+		The commutative property of convolution arises because we have filpped the kernel in the sense that as \textit{m} increases, the index into the input increases, but the index into the kernel decreases (\cite{goodfellow2016deep}). This implementation is not usually necessary in neural networks, so many machine learning libraries implement a related function called cross-validation (\cite{papoulis1962fourier}) without flipping the kernel but even so they call it convolution:
+		
+		\begin{equation}
+		S(i,j) = (I*K)(i,j) = \sum_m\sum_nI(i+m,j+n)K(m,n)
+		\end{equation}
+		
+		At the end, discrete convolution can be viewed as multiplication in which a small weight matrix is sliding around the original input. 
+	
+\section*{2.  Motivation}
+
+	Convolution leverages three important ideas  (\cite{goodfellow2016deep}):
+	
+	\begin{itemize}
+		\item \textit{Sparse Interactions} or \textit{Sparse Connectivity}: They use fewer parameters or weights to learn than a fully connected network. Traditional NN layers use matrix multiplication by a matrix of parameters describing the iteration between each input unit and each output unit. If there are \textit{m} inputs and \textit{n} outputs, then matrix multiplication requieres $m\times n$ parameters and the algorithms used in practice have $O(m\times n)$ runtime. CNNs connect each neuron to only a local region of the input volume. The spatial extent of this connectivity is a hyperparameter called the \textit{receptive field} of the neuron (equivalently this is the filter size). Since we have limited the number of connections each output may have to \textit{k}, the sparsely connected approach requires only $k\times n$ parameters and $O(k\times n)$ runtime. Note that the connections are local in space (along width and height), but always full along the entire depth of the input volume (\cite{cs231n}). Furthemore, three hyperparameters control the size of the output volume (\cite{cs231n}): \textit{depth} (the number of filters we would like to use), \textit{stride} (we must specify the stride with which we slide the filter) and \textit{zero-padding} (sometimes it will be convenient to pad the input volume with zeros around the border to control the spatial size of the output volume).
+		
+		\begin{figure}[]
+			\begin{center}
+				\includegraphics[width=8cm]{face1}
+				\caption{\textit{Sparse connectivity}: We highlight one output unit, $s_3$, and also highlight the input units in $x$ that affect this unit. These units are known as the receptive field of $s_3$. (Top) When $s$ is formed by convolution with a kernel of width 3, only three inputs affect $s_3$. (Bottom) When $s$ is formed by matrix multiplication, connectivity is no longer sparse, so all of the inputs affect $s_3$. Reference: \cite{goodfellow2016deep}.}
+			\end{center}
+		\end{figure}
+		
+		\item \textit{Parameter Sharing}: CNNs automatically learn and generalize features from the input domain. They control the number of parameters by using the same parameter for more than one function in a model. In convolutional neural net, each member of the kernel is used at every position of the input. This means that rather than learning a separate set of parameters for every location, we can learn only one set. Although this does not affect the runtime (it is still $O(k\times n)$), it does further reduce the storage requirements of the model to \textit{k} parameters. 
+		
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=8cm]{face1}
+				\caption{\textit{Parameter sharing}: Black arrows indicate the connections that use a particular parameter in two different models. (Top) The black arrows indicate uses of the central element of a 3-element kernel in a convolutional model. Due to parameter sharing, this single parameter is used at all input locations. (Bottom) The single black arrow indicates the use of the central element of the weight matrix in a fully connected model. This model has no parameter sharing so the parameter is used only once. Reference: \cite{goodfellow2016deep}.}
+			\end{center}
+		\end{figure}
+		
+		\item \textit{Equivariant Representations}: CNNs are designed to be invariant to object position and distortion in the scene. A function is equivariant if when the input changes, the output changes in the same way. Specifically, a function \textit{f} is equivariant to a function \textit{g} if $f(g(x))=g(f(x))$. In the case of convolution, if we let \textit{g} be any function that translates the input, then the convolution function is equivariant to \textit{g}.
+	\end{itemize}
+
+\section*{3.  CNN Architecture}
+
+	 CNN architecture differs from the traditional multilayer perceptrons to ensure the architectural ideas we previously mentioned. In the literature we can find many CNN architectures but their components are very similar. If we consider the typical convolutional network architecture we may recognize (\cite{bhandare2016applications}):
+	 
+	 \begin{itemize}
+	 	\item \textit{Convolutional Layer}: Core building block of a CNN that does most of the computational heavy lifting. The layer's paramateres consist of learnable kernels or filters which extend though the full depth of the input. Each unit of this layer receives inputs from a set of units located in the receptive fields of the previous layer. During the forward pass each filter is convolved with the input which produces a map. When multiple such feature maps that are generated from multiple filters are stacked they form the output of the convolution layer. The weight vector that generates the feature map is shared which reduces the model complexity. In order to see how convolution relates to CNN we can consider a 1D convolutional layer with inputs $x_n$ and outputs $y_n$ (\cite{colah}):
+	 	
+	 	\begin{equation}
+		 	y_n = A(x_n,x_{n+1},...)
+	 	\end{equation}
+	 	
+	 	Generally, $A$ would be multiple neurons, but assuming a single one we can describe it as follows:
+	 	
+	 	\begin{equation}
+		 	y = \sigma(Wx+b)
+	 	\end{equation}
+	 	
+	 	where $W$ is a weight matrix, $b$ is a bias and $\sigma$ is an activation function. In MLP, the weight matrix connects every input to every neuron with different weights:
+	 	
+	 	\begin{equation}
+		 	W=\left[\begin{array}{ccccc} W_{0,0} & W_{0,1} & W_{0,2} & W_{0,3} & \cdots \\
+		 	W_{1,0} & W_{1,1} & W_{1,2} & W_{1,3} & \cdots \\
+		 	W_{2,0} & W_{2,1} & W_{2,2} & W_{2,3} & \cdots \\
+		 	W_{3,0} & W_{3,1} & W_{3,2} & W_{3,3} & \cdots \\
+		 	\cdots & \cdots & \cdots & \cdots & \cdots \\ 
+		 	\end{array}\right]
+	 	\end{equation}
+	 	
+	 	In case of CNN, we connect each neuron to only a local region of the input data (sparse connectivity), reducing the number of parameters and the runtime. If we take a receptive field of $2\times 1$:
+	 	
+	 	\begin{equation}
+		 	W=\left[\begin{array}{ccccc} W_{0,0} & W_{0,1} & 0 & 0 & \cdots \\
+		 	0 & W_{1,1} & W_{1,2} & 0 & \cdots \\
+		 	0 & 0 & W_{2,2} & W_{2,3} & \cdots \\
+		 	0 & 0 & 0 & W_{3,3} & \cdots \\
+		 	\cdots & \cdots & \cdots & \cdots & \cdots \\ 
+		 	\end{array}\right]
+	 	\end{equation}
+	 	
+	 	According to the parameter sharing property, CNNs reduce the storage requirements of the model to $k$ parameters by sharing them for more than one function, in this example, two parameters:
+	 	
+	 	\begin{equation}
+		 	W=\left[\begin{array}{ccccc} w_0 & w_1 & 0 & 0 & \cdots \\
+		 	0 & w_0 & w_1 & 0 & \cdots \\
+		 	0 & 0 & w_0 & w_1 & \cdots \\
+		 	0 & 0 & 0 & w_0 & \cdots \\
+		 	\cdots & \cdots & \cdots & \cdots & \cdots \\ 
+		 	\end{array}\right]
+	 	\end{equation}
+	 	
+	 	Multiplying the input by the above matrix is equivalent to convolving with the sequence $[...0,w_1,w_0,0...]$. The function sliding to different positions corresponds to having neurons at those positions. This idea can be easily implemented for 2D inputs and 2D kernels as well:
+	 	
+	 	\begin{figure}[H]
+	 		\begin{center}
+	 			\includegraphics[width=10cm]{face1}
+	 			\caption{Example of a 2D convolution using a $3\times 3$ kernel. Since we are not including \textit{zero-padding}, the dimension of the feature map is smaller than the input. Reference: \url{https://github.com/PetarV-/TikZ/tree/master/2D\%20Convolution}.}
+	 		\end{center}
+	 	\end{figure} 
+	 	
+	 	\item \textit{Non-linearity Layer}: Also known as activation function or detector stage, this layer introduces nonlinearities which are desirable for multilayer networks. The most common activation functions are sigmoid, tanh and ReLU. Compared with other functions, Rectified Linear Units (ReLU) (\cite{jarrett2009best,glorot2011deep,nair2010rectified}) is preferable because neural netowrks train several times faster.
+	 	
+	 	\begin{figure}[H]
+	 		\begin{center}
+	 			\includegraphics[width=10cm]{face1}
+	 			\caption{Non-linearity layer performance by using ReLU as activation function. Those numbers that are negative become zero in the feature map. Reference: \url{https://medium.com/data-science-group-iitr/building-a-convolutional-neural-network-in-python-with-tensorflow-d251c3ca8117}.}
+	 		\end{center}
+	 	\end{figure}
+	 	
+	 	\item \textit{Pooling Layer}: Layer that down-samples the feature map obtained in the previous layer. It reduces the spatial size of the representation, thus reducing the parameters to be computed and controlling overfitting. The most popular pooling function is \textit{max pooling} (\cite{zhou1988computation}) that reports the maximum output within a rectangular neighborhood. Other pooling functions include the average or $L^2$ norm of a rectangular neighborhood, or a weighted average based on the distance from the central pixel. In all cases, pooling helps to make the representation become approximately invariant to small translations of the input.
+	 	
+	 	\begin{figure}[H]
+	 		\begin{center}
+	 			\includegraphics[width=7cm]{face1}
+	 			\caption{Pooling layer implementation using max pooling operator (\textit{Top}) and average pooling (\textit{Bottom}) in a square neighborhood. Reference: \url{https://medium.com/data-science-group-iitr/building-a-convolutional-neural-network-in-python-with-tensorflow-d251c3ca8117}.}
+	 		\end{center}
+	 	\end{figure}
+	 	
+	 	\item \textit \textit{Fully Connected Layer}: Normal flat feedforward neural network layer. Fully connected layers are used at the end of the network after feature extraction and consolidation have been performed by the convolutional and pooling layers. They are used to create final nonlinear combinations of features and for making predictions by the network. These layers may have nonlinear activation function or a softmax (\cite{nasrabadi2007pattern}) activation in order to output probabilities of class prediction.
+	 	
+	 	\begin{figure}[H]
+	 		\begin{center}
+	 			\includegraphics[width=7cm]{face1}
+	 			\caption{Architecture of a fully-connected neural network.  Reference: \url{https://hackernoon.com/deep-learning-cnns-in-tensorflow-with-gpus-cba6efe0acc2/}.}
+	 		\end{center}
+	 	\end{figure}
+
+	 \end{itemize}
+	 
+	 \begin{figure}[H]
+	 	\begin{center}
+	 		\includegraphics[width=16cm]{face1}
+	 		\caption{Architecture of a typical convolutional neural network. non-linearity layer are usually included between the convolutional layer and the pooling layer. Reference: \url{https://www.pyimagesearch.com/2014/06/09/get-deep-learning-bandwagon-get-perspective/}.}
+	 	\end{center}
+	 \end{figure}
+
+\section*{4.  References}
+\bibliographystyle{apalike}%{elsarticle-harv}
+\bibliography{refs_cnn}
+
+
+\end{document}
